@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.swdo.test.dao.PortfolioMapper">
+
+<select id="portfolioSelectALL" resultType="hashmap">
+	select 
+		p.portfolio_no as portfolio_no 
+		,p.portfolio_type as portfolio_type
+		,p.portfolio_title as portfolio_title
+		,a.applier_nm as applier_nm
+		,to_char(p.portfolio_gb_date, 'yyyy-mm-dd') as portfolio_gb_date
+	from 
+		portfolio_tb p, applier_tb a
+	where
+		p.applier_id = a.applier_id
+		and
+		p.portfolio_g = 1
+	order by
+		p.portfolio_no desc
+</select>
+
+<insert id="portfolioInsert" parameterType="portfolio">
+
+	insert into
+		portfolio_tb (
+			portfolio_no
+			,portfolio_title
+			,portfolio_content
+			,applier_id
+			,portfolio_type
+			,portfolio_st
+			,portfolio_et
+			,portfolio_gb
+		
+		)values (
+			portfolio_seq.nextval
+         	,#{portfolio_title}
+         	,#{portfolio_content}
+         	,#{applier_id}
+         	,#{portfolio_type}
+         	,#{portfolio_st}
+         	,#{portfolio_et}
+         	,#{portfolio_gb}
+		)
+		
+</insert>
+
+<update id="portfolioUpdateGb">
+
+
+</update>
+
+
+</mapper>
