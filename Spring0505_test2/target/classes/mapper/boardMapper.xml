@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swdo.test.dao.BoardMapper">
+<insert id="boardInsert" parameterType="board">
+	insert into
+		blog_board(
+			boardnum
+			,title
+			,id
+			,content
+		)values(
+			blog_board_seq.nextval
+			,#{title}
+			,#{id}
+			,#{content}
+		)
+</insert>
+
+<select id="boardSelectAll" resultType="board" parameterType="board">
+	select	
+		boardnum
+		,id
+		,title
+		,likecnt
+		,content
+		,inputdate
+	from
+		blog_board
+	order by
+		boardnum desc
+</select>
+
+<select id="boardSelectOne" parameterType="int" resultType="board">
+	select	
+		boardnum
+		,id
+		,title
+		,likecnt
+		,content
+		,inputdate
+	from
+		blog_board
+	where
+		boardnum = #{boardnum}
+</select>
+
+<delete id="boardDelete" parameterType="board">
+	delete from
+		blog_board
+	where
+		boardnum = #{boardnum}
+	and
+		id = #{id}
+</delete>
+
+<update id="boardUpdate" parameterType="board">
+update
+	blog_board
+set
+	title = #{title}
+	,content = #{content}
+where
+	boardnum = #{boardnum}
+and
+	id = #{id}
+</update>
+</mapper>

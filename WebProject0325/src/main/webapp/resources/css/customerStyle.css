@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+table{
+	
+	border-collapse : collapse;
+
+}
+
+tr:not(.trExc),td:not(.trExc){
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+	border-left : 1px solid black;
+	
+}
+
+.essential_td{
+	background-color: #F5F5F5;
+}
+
+
+.center{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td {
+	padding-left: 5px;
+}
+
+#essential{
+	border-right :none;
+	border-left: none;
+	text-align: right;	
+}
+
+
+.star{
+	color: red;
+}
+
+.button {
+	text-align: center;
+}
