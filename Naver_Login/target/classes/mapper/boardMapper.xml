@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.swdo.test.dao.BoardMapper">
+
+<select id="boardSelectALL" resultType="hashmap">
+	select 
+		id
+		,name
+		,photo
+	from 
+		blog_member
+	order by
+		id asc
+</select>
+
+
+<select id="boardList" resultType="hashmap" parameterType="board">
+	select 
+		b.boardnum as boardnum
+		,m.id as id
+		,b.title as title
+		,b.content as content
+		,to_char(b.inputdate, 'yyyy-mm-dd') as inputdate
+		,b.likecnt as likecnt
+		,m.photo as photo
+	from 
+		blog_board b, blog_member m
+	where
+		b.id = m.id
+	and
+		b.id = #{id}
+	order by
+		b.boardnum desc
+</select>
+
+
+<insert id="boardInsert" parameterType="board">
+
+	insert into
+		blog_board (
+			boardnum
+			,id
+			,title
+			,content
+		
+		)values (
+			blog_board_seq.nextval
+         	,#{id}
+         	,#{title}
+         	,#{content}
+		)
+		
+</insert>
+
+<select id="boardSelectOne" parameterType="board" resultType="board">
+	select 
+		boardnum 
+		,id
+		,title
+		,content
+		,inputdate
+		,likecnt
+	from 
+		blog_board
+	where
+		id = #{id}
+	and
+		boardnum = #{boardnum}
+	
+</select>
+
+
+<select id="boardSelect" resultType="hashmap">
+	select 
+		b.boardnum as boardnum 
+		,b.id as id
+		,b.title as title
+		,b.content as content
+		,m.name as name
+		,m.photo as photo
+	from 
+		blog_board b, blog_member m
+	where
+		b.id = m.id
+	order by
+		b.id asc
+</select>
+
+
+
+<update id="boardUpdate" parameterType="board">
+	update
+			blog_board
+		set
+			title = #{title}
+			,content = #{content}
+		where
+			 boardnum = #{boardnum}
+		and
+			id = #{id}
+
+</update>
+
+
+<update id="boardUpdateCnt" parameterType="board">
+	update
+			blog_board
+		set
+			likecnt = #{likecnt}
+		where
+			 boardnum = #{boardnum}
+
+
+</update>
+
+<delete id="boardDelete" parameterType="board">
+
+	delete from
+		blog_board
+	where
+		boardnum = #{boardnum}
+</delete>
+
+</mapper>
