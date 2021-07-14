@@ -1,0 +1,23 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	padding: 10px;
+	font-size: 14px;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nineseven.lamp.dao.galleryMapper">
+	<insert id="galleryInsert" parameterType="gallery">
+		insert into
+			 LAMP_GalleryTable(
+				id
+				,pin_no
+				,pin_title
+				,pin_description
+				,upload_img
+				,pin_size
+						
+			) values(
+				#{id}
+				,pin_seq.nextval
+				,#{pin_title}
+				,#{pin_description}
+				,#{upload_img}
+				,#{pin_size}
+			)
+	</insert>
+	
+	<select id="gallerySelectAll" resultType="gallery">
+	select
+		id
+		,pin_no
+		,pin_title
+		,pin_description
+		,upload_img
+		,pin_size
+	from
+		LAMP_GalleryTable
+	order by
+		pin_no desc
+	
+	</select>
+</mapper>

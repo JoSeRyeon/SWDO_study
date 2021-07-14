@@ -1,0 +1,33 @@
+@charset "UTF-8";
+nav {
+	margin: 10px;
+}
+
+body {
+	background-color: #FEF5D4;
+}
+
+ul {
+	list-style: none;
+	text-align: center;
+	border-top: 2px solid #D9418C;
+	border-bottom: 2px solid #D9418C;
+	padding: 10px 0;
+}
+
+ul li {
+	display: inline;;
+	text-transform: uppercase;
+	padding: 0 10px;
+	letter-spacing: 10px;
+}
+
+ul li a {
+	text-decoration: none;
+	color: #AB195E;
+}
+
+ul li a:hover {
+	text-decoration: inherit;
+	color: #9E62FF;
+}
