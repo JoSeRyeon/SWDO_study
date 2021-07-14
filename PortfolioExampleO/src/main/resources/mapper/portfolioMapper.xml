@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scmaster.portfolio.dao.PortfolioMapper">
+	
+	<insert id="portfolioInsert" parameterType="portfolio">
+		insert into
+			portfolio_tb(
+				portfolio_no
+				,applier_id
+				,portfolio_title
+				,portfolio_content
+				,portfolio_type
+				,portfolio_st
+				,portfolio_et
+				,portfolio_gb
+			)values(
+				portfolio_seq.nextval
+				,#{applier_id}
+				,#{portfolio_title}
+				,#{portfolio_content}
+				,#{portfolio_type}
+				,#{portfolio_st}
+				,#{portfolio_et}
+				,#{portfolio_gb}
+			)
+	</insert>
+	
+	<select id="portfolioSelectPublicList" resultType="hashmap">
+		select
+			p.portfolio_no as portfolio_no
+			,p.applier_id as applier_id
+			,p.portfolio_title as portfolio_title
+			,p.portfolio_content as portfolio_content
+			,DECODE(p.portfolio_type,1,'학력정보',2,'경력정보',3,'프로젝트') as portfolio_type
+			,to_char(p.portfolio_st, 'yyyy-mm-dd') as portfolio_st
+			,to_char(p.portfolio_et, 'yyyy-mm-dd') as portfolio_et
+			,DECODE(p.portfolio_gb,0,'미공개',1,'공개' ) as portfolio_gb
+			,to_char(p.portfolio_gb_date, 'yyyy-mm-dd') as portfolio_gb_date
+			,a.applier_nm as applier_nm
+		from
+			portfolio_tb p , applier_tb a
+		where
+			p.applier_id = a.applier_id
+		and
+			p.portfolio_gb = 1
+		order by
+			p.portfolio_gb_date desc
+	</select>
+	
+	<select id="portfolioSelectAllList" parameterType="String" resultType="portfolio">
+		select
+			portfolio_no as portfolio_no
+			,portfolio_title as portfolio_title
+			,DECODE(portfolio_type,1,'학력정보',2,'경력정보',3,'프로젝트') as portfolio_type
+			,portfolio_gb as portfolio_gb
+			,to_char(portfolio_gb_date, 'yyyy-mm-dd') as portfolio_gb_date
+		from
+			portfolio_tb
+		where
+			applier_id	= #{applier_id}
+		order by
+			portfolio_no desc
+	</select>
+	
+	<select id="portfolioSelectOne" parameterType="int" resultType="portfolio">
+		select
+			portfolio_no as portfolio_no
+			,applier_id as applier_id
+			,portfolio_title as portfolio_title
+			,portfolio_content as portfolio_content
+			,DECODE(portfolio_type,1,'학력정보',2,'경력정보',3,'프로젝트') as portfolio_type
+			,to_char(portfolio_st, 'yyyy-mm-dd') as portfolio_st
+			,to_char(portfolio_et, 'yyyy-mm-dd') as portfolio_et
+			,DECODE(portfolio_gb,0,'미공개',1,'공개' ) as portfolio_gb
+			,to_char(portfolio_gb_date, 'yyyy-mm-dd') as portfolio_gb_date
+		from
+			portfolio_tb
+		where
+			portfolio_no = #{portfolio_no}
+	</select>
+	
+	<update id="portfolioUpdateGb" parameterType="portfolio">
+		update
+			portfolio_tb
+		set
+			portfolio_gb = #{portfolio_gb}
+			,portfolio_gb_date = sysdate
+		where
+			portfolio_no = #{portfolio_no}
+		and
+			applier_id = #{applier_id}
+	</update>
+	
+	<delete id="portfolioDelete" parameterType="portfolio">
+		delete from
+			portfolio_gb
+		where
+			portfolio_no = #{portfolio_no}
+		and
+			applier_id = #{applier_id}
+	</delete>
+</mapper>

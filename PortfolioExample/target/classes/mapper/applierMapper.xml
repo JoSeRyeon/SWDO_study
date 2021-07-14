@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scmaster.portfolio.dao.ApplierMapper">
+
+<insert id="applierInsert" parameterType="applier">
+	insert into 
+		applier_tb(
+			applier_id
+			,applier_pw
+			,applier_nm
+		)values(
+			#{applier_id}
+			,#{applier_pw}
+			,#{applier_nm}
+		)
+</insert>
+
+<select id="applierSelectOne" parameterType="string" resultType="applier">
+	select
+		applier_id
+		,applier_pw
+		,applier_nm
+	from
+		applier_tb
+	where
+		applier_id = #{applier_id}
+</select>
+</mapper>
